@@ -17,11 +17,45 @@ import random
             - Si la somme de l'ordinateur est supérieure ou égale à 18, il s'arrête de jouer
 
 """
-
 ### Déclaration et Initialisation des variables
-
-
+joueurlance: int = None
+ordilance: int = None
+joueurscore: int = None
+ordiscore: int = None
+joueurfin: bool = False
+ordifin: bool = False
+joueurscore = 0
+ordiscore = 0
 ### Séquence d'opération
-
-
-
+while (not joueurfin) or not ordifin:
+    if joueurfin == False:
+        joueurlance = int(input("Combien de dés souhaitez-vous lancer ? "))
+        for nb in range (0, joueurlance):
+            joueurscore += random.randint(1,6)
+        print("Vous avez un score de ", joueurscore)
+    if ordifin == False:
+        if ordiscore < 6:
+            ordilance = 3
+        elif ordiscore >= 6 and ordiscore < 12:
+            ordilance = 2
+        elif ordiscore >= 12 and ordiscore < 18:
+            ordilance = 1
+        else:
+            ordilance = 0
+        for nb in range(0, ordilance):
+            ordiscore += random.randint(1, 6)
+        if ordilance != 0:
+            print("L'ordinateur choisi", ordilance, "dés")
+            print("L'ordinateur a un score de ", ordiscore)
+    if ordilance == 0:
+        ordifin = True
+    if joueurlance == 0 or joueurscore > 21:
+        joueurfin = True
+if (joueurscore <= 21 and ordiscore > 21) or (joueurscore <= 21 and (joueurscore - 21) > (ordiscore - 21)):
+    print("Vous avez gagné (" + str(joueurscore) + ") contre l'ordinateur (" + str(ordiscore) + ")")
+elif (ordiscore <= 21 and joueurscore > 21) or (ordiscore <= 21 and (ordiscore - 21) > (joueurscore - 21)):
+    print("Vous avez perdu (" + str(joueurscore) + ") contre l'ordinateur (" + str(ordiscore) + ")")
+elif (ordiscore == joueurscore) and (ordiscore <= 21):
+    print("Vous avez fait égalité (" + str(joueurscore) + ") avec l'ordinateur (" + str(ordiscore) + ")")
+else:
+    print("Il n'y a aucun gagnant")
