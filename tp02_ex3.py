@@ -18,7 +18,36 @@
 
 """
 ### Déclaration et  Initialisation des variables
-
-
-
+RESERVOIR: int = 32.5
+CONSO: float = 5.0
+distance: int = None
+passagers: int = None
+fin: bool = False
+reste : float = 0.0
+var: float = None
+compteur: float = 0
 ### Séquence d'opération
+var = RESERVOIR
+while not fin:
+    distance = int(input("Entrez la distance de votre destination ou entrez 0 pour faire le plein :"))
+    if distance == 0:
+        print("Le réservoir est rempli totalement")
+        var = 32.5
+    if distance != 0:
+        passagers = int(input("Combien de personnes font parties du trajet en plus du conducteur ? "))
+        if passagers == 0 and var >= 0:
+            reste = var - distance * (CONSO / 100)
+            if reste >= 0:
+                print("Il vous reste encore " + str(reste) + "litres d'essence")
+                compteur += distance
+            var = reste
+        elif passagers > 0 and var >= 0:
+            reste = var - distance * (CONSO * (1 + 0.3 * passagers)) / 100
+            if reste >= 0:
+                print("Il vous reste encore " + str(reste) + "litres d'essence")
+                compteur += distance
+            var = reste
+        if var < 0:
+            fin = True
+            print("Vous allez tomber en panne d'essence lors de ce trajet! Pensez à le raccourcir ou faire le plein. ")
+            print("Vous aurez parcouru " + str(compteur) + "km")
